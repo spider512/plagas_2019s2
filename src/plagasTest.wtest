@@ -1,0 +1,112 @@
+import elementos.*
+import plagas.*
+
+test "testPlagas" {
+
+
+ const cucas1 = new Cucaracha()
+ 
+ cucas1.pesoPromedio(8)
+ cucas1.poblacion(30)
+ 
+ 	assert.that( not cucas1.transmiteEnfermedad() )
+ 	assert.equals( 15 , cucas1.nivelDeDanio() )
+ 	
+ cucas1.pesoPromedio(12)
+ 
+  	assert.that( cucas1.transmiteEnfermedad() )
+ 
+
+ const pulgas1 = new Pulgas()
+ 
+ pulgas1.poblacion(30)
+ 
+  	assert.that( pulgas1.transmiteEnfermedad() )
+ 	assert.equals( 60 , pulgas1.nivelDeDanio() )
+ 	
+ pulgas1.poblacion(9)
+ 
+ 	  	assert.that( not pulgas1.transmiteEnfermedad() )
+ 	  	
+ 
+  const garrapatas1 = new Garrapatas()
+ 
+ garrapatas1.poblacion(20)
+ 
+  	assert.that( garrapatas1.transmiteEnfermedad() )
+ 	assert.equals( 40 , garrapatas1.nivelDeDanio() )
+ 	
+ garrapatas1.poblacion(9)
+ 
+ 	  	assert.that( not garrapatas1.transmiteEnfermedad() )
+ 	  	
+ 	  
+ const mosquitos1 = new Mosquitos()
+ 
+  mosquitos1.poblacion(15) 
+  
+    	assert.that( mosquitos1.transmiteEnfermedad() )
+ 		assert.equals( 15 , mosquitos1.nivelDeDanio() )
+ 		
+  mosquitos1.poblacion(10)
+ 
+ 	  	assert.that( not mosquitos1.transmiteEnfermedad() )
+ 	  	
+ 	  	
+ 	// Efectos de un ataque sobre las plagas
+ 	  
+ 	  
+ cucas1.efectoAtaque()
+ 		assert.equals( 14, cucas1.pesoPromedio() )
+ 		assert.equals( 33, cucas1.poblacion() )
+ 		
+ pulgas1.poblacion(30)		
+ pulgas1.efectoAtaque()
+ 
+ 		assert.equals( 33 , pulgas1.poblacion() )
+ 		
+ garrapatas1.poblacion(20)
+ garrapatas1.efectoAtaque()
+ 
+ 		assert.equals( 24 , garrapatas1.poblacion() )
+ 		
+ mosquitos1.efectoAtaque()
+ 		assert.equals( 11 , mosquitos1.poblacion() )
+ 
+  // Metodo en plaga que ataca un elemento
+ 
+ const casaPedro = new Hogar()
+ casaPedro.nivelDeMugre(10)
+ casaPedro.comfortQueOfrece(21)
+ 
+ cucas1.poblacion(30)
+ cucas1.atacar(casaPedro)
+ 
+  		assert.equals( 16, cucas1.pesoPromedio() )
+ 		assert.equals( 33, cucas1.poblacion() )
+ 		assert.equals( 25 , casaPedro.nivelDeMugre() )
+ 
+ const huertaPedro = new Huerta() 
+ huertaPedro.capacidadProduccion(20)
+ huertaPedro.produccionASueprar(19)	
+
+ mosquitos1.poblacion(10)
+ mosquitos1.atacar(huertaPedro)
+ 
+ 		assert.equals( 11 , mosquitos1.poblacion() )
+ 		assert.equals( 19 , huertaPedro.capacidadProduccion() )
+ 
+const mascotaDePedro = new Mascota()
+ mascotaDePedro.nivelDeSalud(300)
+  		
+pulgas1.poblacion(30)	
+garrapatas1.poblacion(20)
+
+pulgas1.atacar(mascotaDePedro)
+		assert.equals( 240 , mascotaDePedro.nivelDeSalud())
+		assert.equals( 33 , pulgas1.poblacion() )
+		
+garrapatas1.atacar(mascotaDePedro)
+		assert.equals( 200, mascotaDePedro.nivelDeSalud() )
+		assert.equals( 24 , garrapatas1.poblacion() )
+}

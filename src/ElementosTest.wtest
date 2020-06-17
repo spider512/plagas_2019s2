@@ -1,0 +1,81 @@
+import elementos.*
+import plagas.*
+
+test "testElementos" {
+
+const casaPedro = new Hogar()
+
+ casaPedro.nivelDeMugre(10)
+ casaPedro.comfortQueOfrece(21)
+ 
+ 	assert.that( casaPedro.esBueno() )
+ 	
+ casaPedro.comfortQueOfrece(10)
+ 
+ 	assert.that( not casaPedro.esBueno() )
+ 	
+ 	
+ 
+ const huertaPedro = new Huerta()
+ 
+ huertaPedro.capacidadProduccion(20)
+ huertaPedro.produccionASueprar(19)
+ 
+ 	assert.that( huertaPedro.esBueno() )
+ 	
+ huertaPedro.produccionASueprar(22)
+ 
+ 	assert.that( not huertaPedro.esBueno() )
+ 
+ 
+const mascotaDePedro = new Mascota()
+ 
+ mascotaDePedro.nivelDeSalud(300)
+ 
+  	assert.that( mascotaDePedro.esBueno() )
+ 
+ mascotaDePedro.nivelDeSalud(240)
+ 
+ 	assert.that( not mascotaDePedro.esBueno() )
+ 	
+ const barrioLaJuanita = new Barrios()
+ 
+ 	barrioLaJuanita.elementos().add(casaPedro)
+ 	barrioLaJuanita.elementos().add(huertaPedro)
+ 	barrioLaJuanita.elementos().add(mascotaDePedro)
+ 	
+ 	assert.that( not barrioLaJuanita.esCopado() )
+ 	
+ mascotaDePedro.nivelDeSalud(300)	
+ huertaPedro.produccionASueprar(19)
+ 
+ 	assert.that( barrioLaJuanita.esCopado() )
+ 	
+ 	
+ // Efectos de plagas en elementos.
+ 
+  const cucas1 = new Cucaracha()
+ 
+ cucas1.pesoPromedio(8)
+ cucas1.poblacion(30)
+ 
+ casaPedro.ataque(cucas1)
+ 
+ 	assert.equals( 25, casaPedro.nivelDeMugre() )
+ 	
+ 
+ huertaPedro.ataque(cucas1)
+ 
+ 	assert.equals( 18.5, huertaPedro.capacidadProduccion() )
+ 	
+ cucas1.pesoPromedio(12)
+ huertaPedro.ataque(cucas1)
+ 
+ 	assert.equals( 7 , huertaPedro.capacidadProduccion() )
+ 	
+ mascotaDePedro.ataque(cucas1)
+ 
+ 	assert.equals( 285, mascotaDePedro.nivelDeSalud() )
+ 
+
+}
